@@ -4,8 +4,8 @@ import Sidebar from "../../Components/Sidebar/Sidebar"
 import Feed from "../../Components/Feed/Feed"
 import { useParams } from 'react-router-dom'
 
-const Home = () => {
-    const {sidebar} = useParams()
+const Home = ({sidebar, query}) => {
+    // const  = useParams()
 
     const [category, setCategory] = useState(0)
 
@@ -13,10 +13,10 @@ const Home = () => {
     <>
         <Sidebar sidebar={sidebar} category={category} setCategory={setCategory}/> 
         <div className={`container ${sidebar?"":"large-container"}`}>
-            <Feed category={category}/>
+            <Feed category={category} query={query}/>
         </div>
     </>
   )
 }
 
-export default Home
+export default Home;

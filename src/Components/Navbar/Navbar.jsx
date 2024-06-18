@@ -7,35 +7,43 @@ import upload_icon from "../../assets/upload.png"
 import more_icon from "../../assets/more.png"
 import notification_icon from "../../assets/notification.png"
 import profile_icon from "../../assets/jack.png"
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { useState } from "react"
 
-export default function Navbar() {
+export default function Navbar({ setSidebar, query, setQuery }) {
+   
 
-    const {setSidebar} = useParams()
+    const onChange = (e) => {
+        setQuery(e.target.value);
+    }
 
-  return (
-    <nav className="flex-div">
-        <div className="nav-left flex-div">
-            <img className="menu-icon" onClick={()=>setSidebar(prev=>prev===false?true:false)} src={menu_icon} alt="" />
-            <Link to="/">
-                <img className="logo" src={logo} alt="" />
-            </Link>
-        </div>
-
-        <div className="nav-middle flex-div">
-            <div className="search-box flex-div">
-                <input type="text" placeholder="Search" />
-                <img src={search_icon} alt="" />
+    return (
+        <nav className="flex-div">
+            <div className="nav-left flex-div">
+                <img className="menu-icon" onClick={() => { setSidebar(prev => !prev) }} src={menu_icon} alt="Menu Icon" />
+                <Link to="/">
+                    <img className="logo" src={logo} alt="Logo" />
+                </Link>
             </div>
-        </div>
 
-        <div className="nav-right flex-div">
-            <img src={upload_icon} alt="" />
-            <img src={more_icon} alt="" />
-            <img src={notification_icon} alt="" />
-            <img src={profile_icon} className="user-icon" alt="" />
-        </div>
+            <div className="nav-middle flex-div">
+                <div className="search-box flex-div">
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        value={query}
+                        onChange={onChange}
+                    />
+                    <img src={search_icon} alt="Search Icon" />
+                </div>
+            </div>
 
-    </nav>
-  )
+            <div className="nav-right flex-div">
+                <img src={upload_icon} alt="Upload Icon" />
+                <img src={more_icon} alt="More Icon" />
+                <img src={notification_icon} alt="Notification Icon" />
+                <img src={profile_icon} className="user-icon" alt="Profile Icon" />
+            </div>
+        </nav>
+    )
 }

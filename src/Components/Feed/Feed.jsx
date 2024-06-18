@@ -5,22 +5,38 @@ import { Link } from 'react-router-dom';
 import { API_KEY, value_convertor } from '../../data';
 import moment from 'moment';
 
-const Feed = ({ category }) => {
+const Feed = ({ category, query }) => {
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
-    const videoListUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${category}&key=${API_KEY}`;
-    try {
-      const response = await axios.get(videoListUrl);
-      setData(response.data.items);
-    } catch (error) {
-      console.error('Error fetching data: ', error);
+    if (query == ""){
+      const videoListUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${category}&key=${API_KEY}`;
+      try {
+        const response = await axios.get(videoListUrl);
+        setData(response.data.items);
+        // console.log(data);
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
     }
+    else{
+      const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=50&q=${query}&videoCategoryId=${category}&key=${API_KEY}`;
+      try {
+        const response = await axios.get(searchUrl);
+        setData(response.data.items);
+        // console.log(data)
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
+    }
+
   };
+
+
 
   useEffect(() => {
     fetchData();
-  }, [category]);
+  }, [category, query]);
 
   return (
     <div className="feed">

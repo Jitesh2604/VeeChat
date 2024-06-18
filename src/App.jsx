@@ -6,16 +6,17 @@ import Video from "./pages/Video/Video.jsx"
 const App = () => {
 
   const [sidebar, setSidebar]  = useState(true)
+  const [query, setQuery] = useState("");
 
   return (
     <div>
-      <Navbar setSidebar = {setSidebar}/>
+      <Navbar setSidebar = {setSidebar} setQuery={setQuery}/>
       <Routes>
-        <Route path="/" element={<Home sidebar = {sidebar}/>}/>
+        <Route path="/" element={<Home sidebar = {sidebar} query={query}/>}/>
         <Route path="/video/:categoryId/:videoId" element={<Video/>}/>
       </Routes>
     </div>
   )
 }
 
-export default App
+export default App;
