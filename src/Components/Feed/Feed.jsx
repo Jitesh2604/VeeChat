@@ -14,17 +14,15 @@ const Feed = ({ category, query }) => {
       try {
         const response = await axios.get(videoListUrl);
         setData(response.data.items);
-        // console.log(data);
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
     }
     else{
-      const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=50&q=${query}&videoCategoryId=${category}&key=${API_KEY}`;
+      const searchUrl = `https://youtube.googleapis.com/youtube/v3/search?q=${query}&key=${API_KEY}&part=snippet&maxResults=50`;
       try {
         const response = await axios.get(searchUrl);
         setData(response.data.items);
-        // console.log(data)
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
@@ -45,9 +43,12 @@ const Feed = ({ category, query }) => {
           <img src={item.snippet.thumbnails.medium.url} alt={item.snippet.title} />
           <h2>{item.snippet.title}</h2>
           <h3>{item.snippet.channelTitle}</h3>
-          <p>
-            {value_convertor(item.statistics.viewCount)} views &bull; {moment(item.snippet.publishedAt).fromNow()}
-          </p>
+          {query === "" ? (
+            <p>
+              {value_convertor(item.statistics.viewCount)} views &bull; {moment(item.snippet.publishedAt).fromNow()}
+            </p>
+          ) : null}
+
         </Link>
       ))}
     </div>
