@@ -45,7 +45,7 @@ const Feed = ({ category, query }) => {
           <h3>{item.snippet.channelTitle}</h3>
           {query === "" ? (
             <p>
-              {value_convertor(item.statistics.viewCount)} views &bull; {moment(item.snippet.publishedAt).fromNow()}
+              {value_convertor(item?.statistics?.viewCount)} views &bull; {moment(item?.snippet?.publishedAt).fromNow()}
             </p>
           ) : null}
 
